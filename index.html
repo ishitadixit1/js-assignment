@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validateForm() {
+    var students = 
+    {
+    firstName: "", 
+    lastName: "", 
+    age: 0, 
+    gender: "", 
+    dob: "", 
+    };
+  let x = document.forms["studentForm"]["fname"].value;
+  let y = document.forms["studentForm"]["lname"].value;
+  let z = document.forms["studentForm"]["dob"].value;
+  let age = document.forms["studentForm"]["age"].value;
+  var genders = document.getElementsByName("gender");
+  let hobby = document.forms["studentForm"]["hobbies"].value;
+  students.firstName = x;
+  students.lastName = y;
+  students.dob = z;
+  students.age =  age;
+  students.gender = genders.value;
+  students.hobbies = hobby;
+  console.log(students);
+  if (x == "") {
+    var fmsg = '<span style="color:red;">You must enter first name!</span><br /><br />';
+    document.getElementById('fmsg').innerHTML = fmsg;
+    return false;
+  }
+  if (y == "") {
+    var fmsg = '<span style="color:red;">You must enter last name!</span><br /><br />';
+    document.getElementById('lmsg').innerHTML = fmsg;
+    return false;
+  }
+  if(z == ""){
+    var msg = '<span style="color:red;">Enter date </span><br /><br />';
+    document.getElementById('dd').innerHTML = msg;
+    return false;
+  }
+  if(age == ""){
+    var msg = '<span style="color:red;">Enter age </span><br /><br />';
+    document.getElementById('age-error').innerHTML = msg;
+    return false;
+  }
+  if (genders[0].checked != true || genders[1].checked != true) {
+                   var msg = '<span style="color:red;">You must select your gender!</span><br /><br />';
+                    document.getElementById('msg').innerHTML = msg;
+                    return false;
+                } 
+
+  if(y!="" && x!="" && z != "" && (genders[0].checked == true || genders[1].checked == true)){
+        document.getElementById('lmsg').innerHTML = '';
+        document.getElementById('fmsg').innerHTML = '';
+        document.getElementById('dd').innerHTML = '';
+        document.getElementById('msg').innerHTML = '';
+        alert("Form submitted succesfully");
+        return true;
+    }
+}
+</script>
+<style>
+    #studeForm{
+        justify-content: center;
+        width: 500px;
+        height: 500px;
+        border: 2px solid black;
+        align-items:center ;
+        background-color:darkseagreen;
+        margin-left: 30%;
+        padding-left: 20px;
+    }
+
+    #add{
+        background-color: teal;
+        color: white;
+        height: 30px;
+        border-radius: 5px;
+        margin-left: 200px;
+    }
+    h2{
+        margin-left: 40%;
+    }
+</style>
+</head>
+<body>
+
+<h2>Student Validation</h2>
+
+<form name="studentForm" id="studeForm" onsubmit="return validateForm()" method="post">
+  <br><br>
+  First Name: <input type="text" name="fname" id="fname"><br><br>
+  <div id="fmsg"></div><br>
+  Last Name: <input type="text" name="lname" id="lname"><br><br>
+  <div id="lmsg"></div><br>
+  Age: <input type="text" name="age" id="age"><br>
+  <div id="age-error"></div><br><br>
+  <label for="gender">Gender:</label>
+  <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label>
+  <input type="radio" id="female" name="gender" value="female">
+  <label for="female">Female</label><br><br>
+  <div id="msg"></div><br>
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" name="dob"><br>
+  <div id="dd"></div><br><br>
+  <label for="cars">Choose a department:</label>
+  <select id="dept">
+    <option value="management">Management</option>
+    <option value="it">IT</option>
+    <option value="arts">Arts</option>
+  </select><br><br><br>
+  Hobbies: <input type="text" name="hobbies" id="hobbies"><br><br>
+  <br>
+  <input type="submit" id="add" value="Submit">
+</form>
+
+</body>
+</html>
