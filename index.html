@@ -2,7 +2,7 @@
 <html>
 <head>
 <script>
-function validateForm() {
+    function validateForm() {
     var students = 
     {
     firstName: "", 
@@ -10,111 +10,146 @@ function validateForm() {
     age: 0, 
     gender: "", 
     dob: "", 
+    hobbies : [],
     };
   let x = document.forms["studentForm"]["fname"].value;
   let y = document.forms["studentForm"]["lname"].value;
   let z = document.forms["studentForm"]["dob"].value;
   let age = document.forms["studentForm"]["age"].value;
-  var genders = document.getElementsByName("gender");
+  var genders = document.forms["studentForm"]["gender"].value;
   let hobby = document.forms["studentForm"]["hobbies"].value;
   students.firstName = x;
   students.lastName = y;
   students.dob = z;
   students.age =  age;
-  students.gender = genders.value;
-  students.hobbies = hobby;
-  console.log(students);
+  students.gender = genders;
+  students.hobbies.push(hobby.split(','));
   if (x == "") {
     var fmsg = '<span style="color:red;">You must enter first name!</span><br /><br />';
     document.getElementById('fmsg').innerHTML = fmsg;
     return false;
   }
-  if (y == "") {
+  else if (y == "") {
     var fmsg = '<span style="color:red;">You must enter last name!</span><br /><br />';
     document.getElementById('lmsg').innerHTML = fmsg;
     return false;
   }
-  if(z == ""){
+  else if(z == ""){
     var msg = '<span style="color:red;">Enter date </span><br /><br />';
     document.getElementById('dd').innerHTML = msg;
     return false;
   }
-  if(age == ""){
+  else if(age == ""){
     var msg = '<span style="color:red;">Enter age </span><br /><br />';
     document.getElementById('age-error').innerHTML = msg;
     return false;
   }
-  if (genders[0].checked != true || genders[1].checked != true) {
-                   var msg = '<span style="color:red;">You must select your gender!</span><br /><br />';
-                    document.getElementById('msg').innerHTML = msg;
-                    return false;
-                } 
-
-  if(y!="" && x!="" && z != "" && (genders[0].checked == true || genders[1].checked == true)){
+  else if (genders == "") {
+    var msg = '<span style="color:red;">You must select your gender!</span><br /><br />';
+    document.getElementById('msg').innerHTML = msg;
+    return false;
+    } 
+   else if(hobby == ""){
+    var hobbyError = '<span style="color:red;">Enter your hobbies </span><br /><br />';
+    document.getElementById('hobby').innerHTML = hobbyError;
+    return false;
+   }
+  else{
         document.getElementById('lmsg').innerHTML = '';
         document.getElementById('fmsg').innerHTML = '';
         document.getElementById('dd').innerHTML = '';
         document.getElementById('msg').innerHTML = '';
+        document.getElementById('age-error').innerHTML = '';
+        document.getElementById('hobby').innerHTML = '';
         alert("Form submitted succesfully");
-        return true;
+        console.log(students);
+        return false;
     }
 }
 </script>
 <style>
-    #studeForm{
-        justify-content: center;
-        width: 500px;
-        height: 500px;
-        border: 2px solid black;
-        align-items:center ;
-        background-color:darkseagreen;
-        margin-left: 30%;
-        padding-left: 20px;
-    }
+    *{
+    font-family:cursive;
+}
+html{
+    background-image: url('https://img.freepik.com/premium-vector/abstract-trendy-floral-background-vector_7087-1882.jpg');
 
-    #add{
-        background-color: teal;
-        color: white;
-        height: 30px;
-        border-radius: 5px;
-        margin-left: 200px;
-    }
-    h2{
-        margin-left: 40%;
-    }
+}
+#studeForm{
+    justify-content: center;
+    width: 500px;
+    height: auto;
+    border: 2px solid black;
+    align-items:center ;
+    background-color:darkseagreen;
+    margin-left: 30%;
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+input,select{
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+#add{
+    background-color: teal;
+    color: white;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 200px;
+    padding: 6px 20px 16px 20px;
+}
+h2{
+    margin-left: 40%;
+}
+.container{
+    display: flex;
+    margin-top: 5%;
+    margin-left: 120px;
+}
+.heading{
+    margin-right: -60px;
+}
 </style>
 </head>
 <body>
+<div class="container">
+<div>
+    <h2 class="heading">Student Validation Form</h2>
+</div>
 
-<h2>Student Validation</h2>
-
+<div>
 <form name="studentForm" id="studeForm" onsubmit="return validateForm()" method="post">
   <br><br>
-  First Name: <input type="text" name="fname" id="fname"><br><br>
-  <div id="fmsg"></div><br>
-  Last Name: <input type="text" name="lname" id="lname"><br><br>
-  <div id="lmsg"></div><br>
-  Age: <input type="text" name="age" id="age"><br>
-  <div id="age-error"></div><br><br>
+  First Name: <input type="text" placeholder="Enter your first name" name="fname" id="fname"><br><br>
+  <span id="fmsg"></span><br>
+  Last Name: <input type="text" placeholder="Enter your last name" name="lname" id="lname"><br><br>
+  <span id="lmsg"></span><br>
+  Age: <input type="number" name="age" placeholder="Enter age" id="age"><br>
+  <span id="age-error"></span><br><br>
   <label for="gender">Gender:</label>
   <input type="radio" id="male" name="gender" value="male">
-  <label for="male">Male</label>
+  Male
   <input type="radio" id="female" name="gender" value="female">
-  <label for="female">Female</label><br><br>
-  <div id="msg"></div><br>
+  Female<br><br>
+  <span id="msg"></span><br>
   <label for="dob">Date of Birth:</label>
-  <input type="date" id="dob" name="dob"><br>
-  <div id="dd"></div><br><br>
-  <label for="cars">Choose a department:</label>
-  <select id="dept">
+  <input type="date" id="dob" placeholder="Enter dob" name="dob"><br>
+  <span id="dd"></span><br><br>
+  <label for="dept">Choose a department:</label>
+  <select id="dept" name="dept">
     <option value="management">Management</option>
     <option value="it">IT</option>
     <option value="arts">Arts</option>
   </select><br><br><br>
-  Hobbies: <input type="text" name="hobbies" id="hobbies"><br><br>
+  Hobbies: <input type="text" name="hobbies" id="hobbies"><br>
+  <span id="hobby"></span><br>
   <br>
   <input type="submit" id="add" value="Submit">
 </form>
-
+</div>
+</div>
 </body>
 </html>
